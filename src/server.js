@@ -3,11 +3,21 @@ const ApolloServerLambda = require('apollo-server-lambda').ApolloServer
 const { gql } = require('apollo-server-lambda');
 
 const mongoose = require('mongoose');
+const cron = require('node-cron');
+const moment = require('moment');
+var cloudinary = require('cloudinary').v2;
+
 mongoose.connect('mongodb+srv://admin:P@ssw0rd@cluster0.zo5ak.mongodb.net/<dbname>?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 var mongooseConnect = mongoose.connection;
+
+cloudinary.config({
+    cloud_name: 'xxxxx',
+    api_key: 'xxxxx',
+    api_secret: 'xxxxx'
+});
 
 const Note = mongoose.model("Note", {
     title: String,
@@ -29,6 +39,7 @@ const Upcoming = mongoose.model("Upcoming", {
     Image: String
 });
 
+// Notes
 const typeDefs = gql
 `type Query {
     getNote(id: ID!): Note
@@ -106,6 +117,23 @@ const resolvers = {
     }
 };
 
+// Run Job once everyday 
+cron.schedule('0 0 * * *', () => {
+    Note.find({}, function(err, result) {
+        var currentData = [];
+        if (err) {
+            console.log(err);
+        } else {
+            currentData.push(...result);
+        }
+        const filteredResult = currentData.filter(a => a.date == moment(new Date()).format("YYYY-MM-DD"))
+
+        for(let x of filteredResult) {
+            mongooseConnect.collection('upcomings').insertOne(x)
+        }
+      });
+});
+
 function createLambdaServer () {
     return new ApolloServerLambda({
         typeDefs,
@@ -124,4 +152,4 @@ function createLocalServer () {
     });
 }
   
-  module.exports = { createLambdaServer, createLocalServer }
+module.exports = { createLambdaServer, createLocalServer }
