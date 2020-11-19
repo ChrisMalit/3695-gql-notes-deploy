@@ -1,0 +1,59 @@
+Add Note:
+mutation{
+  addNote(
+    title: " ",
+    date: " ",
+    url: " ",
+    content: " "
+    video: YOUTUBE
+    reminder: " "
+    Image: "./images/.jpg"
+    ){
+      id
+    }
+}
+
+Delete Note:
+mutation{
+  deleteNote(id:" ")
+}
+
+Add Image to Existing Note
+mutation{
+  addImage(
+    id:" ",
+    Image: "./images/.jpg"
+  )
+}
+
+Get All Notes:
+query{
+  getNotes{
+    id
+    title
+  }
+}
+
+Get Single Note by ID:
+query{
+  getNote(id:" "){
+    id
+    title
+  }
+}
+
+Get All Notes with matching title:
+query{
+  getNoteByTitle(title:" "){
+    id
+    title
+  }
+}
+
+Get All Reminders for Current Day:
+query{
+  getUpcoming{
+    title
+    reminder
+  }
+}
