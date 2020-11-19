@@ -7,6 +7,13 @@ const cron = require('node-cron').ApolloServer;
 const moment = require('moment').ApolloServer;
 var cloudinary = require('cloudinary').v2;
 
+mongoose.connect('mongodb+srv://admin:P@ssw0rd@cluster0.zo5ak.mongodb.net/<dbname>?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+var mongooseConnect = mongoose.connection;
+
+
 const typeDefs = gql`
   type Query {
     hello: String
