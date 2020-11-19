@@ -2,6 +2,10 @@ const ApolloServer = require('apollo-server').ApolloServer
 const ApolloServerLambda = require('apollo-server-lambda').ApolloServer
 const { gql } = require('apollo-server-lambda');
 
+const mongoose = require('mongoose').ApolloServer;
+const cron = require('node-cron').ApolloServer;
+const moment = require('moment').ApolloServer;
+var cloudinary = require('cloudinary').v2;
 const typeDefs = gql`
   type Query {
     hello: String
