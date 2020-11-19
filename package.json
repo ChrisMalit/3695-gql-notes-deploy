@@ -1,5 +1,5 @@
 {
-  "name": "Netlify",
+  "name": "3695-gql-notes-deploy",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,9 +8,17 @@
     "start": "nodemon",
     "bundle": "cpx src/**/* functions/bundle"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisMalit/3695-gql-notes-deploy.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrisMalit/3695-gql-notes-deploy/issues"
+  },
+  "homepage": "https://github.com/ChrisMalit/3695-gql-notes-deploy#readme",
   "dependencies": {
     "apollo-server": "^2.19.0",
     "apollo-server-lambda": "^2.19.0",
